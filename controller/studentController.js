@@ -18,8 +18,10 @@ exports.createStudent = async (req, res) => {
   // const email = req.body.Email;
   // const password = req.body.password;
 
-  const { name, address, email, password } = req.body; //calling objects from the body separately
-  console.log(name, address, email, password);
+  console.log(req.file);
+
+  const { name, address, email, password, image } = req.body; //calling objects from the body separately
+  console.log(name, address, email, password, image );
 
   db.student.create({
     //inserting data into database
@@ -27,6 +29,7 @@ exports.createStudent = async (req, res) => {
     Address: address,
     Email: email,
     Password: bcrypt.hashSync(password,2),
+    Image: "http://localhost:4000/" + req.file.filename,
   });
 
   res.redirect("/login");
